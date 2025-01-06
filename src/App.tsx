@@ -1,8 +1,12 @@
-import React from 'react';
-import { Button } from '@mui/material';
+import React from "react";
+import MainLayout from "./layouts/MainLayout";
 
 const App: React.FC = () => {
-  return <Button variant="contained">Click Me</Button>;
+  return (
+    <MainLayout>
+      <h1>Hello world</h1>
+    </MainLayout>
+  );
 };
 
 export default App;
