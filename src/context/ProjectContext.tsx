@@ -3,6 +3,7 @@ import React, { createContext, useState, ReactNode, useContext } from "react";
 export interface Project {
   id: string;
   name: string;
+  description: string;
   startDate: string;
   endDate: string;
   manager: string;

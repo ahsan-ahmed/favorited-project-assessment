@@ -9,11 +9,7 @@ const Projects: React.FC = () => {
 
   return (
     <MainLayout>
-      <Box
-        sx={{
-          maxWidth: "1028px",
-        }}
-      >
+      <Box>
         <Box
           sx={{
             display: "flex",

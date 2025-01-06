@@ -10,8 +10,9 @@ const ProjectForm: React.FC = () => {
   const { id } = useParams();
 
   const [formData, setFormData] = useState({
-    id: generateProjectId(projects),
+    id: "",
     name: "",
+    description: "",
     startDate: "",
     endDate: "",
     manager: "",
@@ -31,10 +32,15 @@ const ProjectForm: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData((prevData) => {
+      const newData = { ...prevData, [name]: value };
+
+      if (name === "name") {
+        newData.id = generateProjectId(value);
+      }
+
+      return newData;
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -48,8 +54,9 @@ const ProjectForm: React.FC = () => {
       addProject(newProject);
     }
     setFormData({
-      id: generateProjectId(projects),
+      id: "",
       name: "",
+      description: "",
       startDate: "",
       endDate: "",
       manager: "",
@@ -61,7 +68,7 @@ const ProjectForm: React.FC = () => {
   return (
     <Box sx={{ padding: 3 }}>
       <Typography variant="h4" gutterBottom>
-        {id ? "Edit" : "Add New"} Project
+        {id ? "Update" : "Add New"} Project
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
@@ -71,7 +78,7 @@ const ProjectForm: React.FC = () => {
               variant="outlined"
               fullWidth
               disabled
-              value={formData.id}
+              value={generateProjectId(formData.name)}
               onChange={handleInputChange}
               name="id"
             />
@@ -86,6 +93,19 @@ const ProjectForm: React.FC = () => {
               value={formData.name}
               onChange={handleInputChange}
               name="name"
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              label="Description"
+              variant="outlined"
+              fullWidth
+              value={formData.description}
+              onChange={handleInputChange}
+              name="description"
+              multiline
+              rows={4}
             />
           </Grid>
 
@@ -135,7 +155,7 @@ const ProjectForm: React.FC = () => {
 
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary">
-              {id ? "Edit" : "Add"} Project
+              {id ? "Update" : "Add"} Project
             </Button>
           </Grid>
         </Grid>
