@@ -9,28 +9,20 @@ const Projects: React.FC = () => {
 
   return (
     <MainLayout>
-      <Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+      <Box className="flex justify-between items-center py-6">
+        <h1 className="text-xl sm:text-2xl">Favorites Projects</h1>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            navigate("/add-project");
           }}
+          sx={{ height: "fitContent" }}
         >
-          <h1>Favorites Projects</h1>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              navigate("/add-project");
-            }}
-            sx={{ height: "fitContent" }}
-          >
-            Add Project
-          </Button>
-        </Box>
-        <ProjectListTable />
+          Add Project
+        </Button>
       </Box>
+      <ProjectListTable />
     </MainLayout>
   );
 };

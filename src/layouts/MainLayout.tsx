@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header/Header";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,11 +11,13 @@ interface MainLayoutProps {
 }
 
 export default function MainLayout({ children }: MainLayoutProps) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: { sm: "flex" } }}>
       <CssBaseline />
-      <Header />
-      <SideBar />
+      <Header setMobileOpen={setMobileOpen} />
+      <SideBar mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
       <Box
         component="main"
         sx={{

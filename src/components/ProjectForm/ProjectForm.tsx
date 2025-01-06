@@ -66,10 +66,8 @@ const ProjectForm: React.FC = () => {
   };
 
   return (
-    <Box sx={{ padding: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        {id ? "Update" : "Add New"} Project
-      </Typography>
+    <Box>
+      <h4 className="py-6 text-2xl">{id ? "Update" : "Add New"} Project</h4>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12}>

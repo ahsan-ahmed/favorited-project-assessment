@@ -6,9 +6,7 @@ import ProjectForm from "../components/ProjectForm/ProjectForm";
 const AddProject: React.FC = () => {
   return (
     <MainLayout>
-      <Box>
-        <ProjectForm />
-      </Box>
+      <ProjectForm />
     </MainLayout>
   );
 };

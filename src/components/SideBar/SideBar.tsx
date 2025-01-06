@@ -21,11 +21,12 @@ interface MenuItem {
 
 interface Props {
   window?: () => Window;
+  mobileOpen: boolean;
+  setMobileOpen: (mobileOpen: boolean) => void;
 }
 
 export default function SideBar(props: Props) {
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const { window, mobileOpen, setMobileOpen } = props;
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
   const { projects } = useProjects();
   const navigate = useNavigate();
@@ -49,10 +50,6 @@ export default function SideBar(props: Props) {
 
   const handleDrawerClose = () => {
     setMobileOpen(false);
-  };
-
-  const toggleMenu = (name: string) => {
-    setOpenMenus((prev) => ({ ...prev, [name]: !prev[name] }));
   };
 
   const renderMenuItems = (items: MenuItem[]) =>
