@@ -1,19 +1,21 @@
 import React from "react";
 import MainLayout from "../layouts/MainLayout";
 import { Box } from "@mui/material";
+import ProjectForm from "../components/ProjectForm/ProjectForm";
 
-export default function Home() {
+const AddProject: React.FC = () => {
   return (
     <MainLayout>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          maxWidth: "1028px",
         }}
       >
-        <h1>Home</h1>
+        <h1>Add Project</h1>
+        <ProjectForm />
       </Box>
     </MainLayout>
   );
-}
+};
+
+export default AddProject;
