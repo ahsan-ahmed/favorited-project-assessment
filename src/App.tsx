@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import AddProject from "./pages/AddProject";
 import { ProjectProvider } from "./context/ProjectContext";
+import ProjectDetail from "./pages/ProjectDetail";
 
 const App: React.FC = () => {
   return (
@@ -12,7 +13,9 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/add-project/:id?" element={<AddProject />} />
+          <Route path="/projects/new" element={<AddProject />} />
+          <Route path="/projects/:projectId/edit" element={<AddProject />} />
+          <Route path="/projects/:projectId" element={<ProjectDetail />} />
         </Routes>
       </Router>
     </ProjectProvider>

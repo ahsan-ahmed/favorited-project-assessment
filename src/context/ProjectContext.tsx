@@ -1,13 +1,12 @@
-import React, { createContext, useState, ReactNode, useContext } from "react";
-
-export interface Project {
-  id: string;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  manager: string;
-}
+import React, {
+  createContext,
+  useState,
+  ReactNode,
+  useContext,
+  useEffect,
+} from "react";
+import { Project } from "../interfaces/project";
+import { createProject, editProject, getProjects } from "../utils/api";
 
 interface ProjectContextType {
   projects: Project[];
@@ -26,16 +25,30 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
 }) => {
   const [projects, setProjects] = useState<Project[]>([]);
 
+  useEffect(() => {
+    getProjects()
+      .then((data) => setProjects(data))
+      .catch((error) => console.error(error));
+  }, []);
+
   const addProject = (project: Project) => {
-    setProjects((prevProjects) => [...prevProjects, project]);
+    createProject(project)
+      .then((addedProject) =>
+        setProjects((prevProjects) => [...prevProjects, addedProject])
+      )
+      .catch((error) => console.error(error));
   };
 
   const updateProject = (id: string, updatedProject: Project) => {
-    setProjects((prevProjects) =>
-      prevProjects.map((project) =>
-        project.id === id ? { ...project, ...updatedProject } : project
+    editProject(id, updatedProject)
+      .then((updatedProject) =>
+        setProjects((prevProjects) =>
+          prevProjects.map((project) =>
+            project.id === id ? { ...project, ...updatedProject } : project
+          )
+        )
       )
-    );
+      .catch((error) => console.error("Error updating project:", error));
   };
 
   return (

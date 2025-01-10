@@ -1,0 +1,29 @@
+[
+  {
+    "id": "project_a",
+    "name": "Project A",
+    "description": "Description for Project A",
+    "startDate": "2025-01-01",
+    "endDate": "2025-12-31",
+    "manager": "John Doe",
+    "favorited": false
+  },
+  {
+    "id": "project_b",
+    "name": "Project B",
+    "description": "Description for Project B",
+    "startDate": "2025-02-01",
+    "endDate": "2025-11-30",
+    "manager": "Jane Smith",
+    "favorited": false
+  },
+  {
+    "id": "project_c",
+    "name": "Project C",
+    "description": "Description for Project C",
+    "startDate": "2025-03-01",
+    "endDate": "2025-09-30",
+    "manager": "Alice Johnson",
+    "favorited": false
+  }
+]

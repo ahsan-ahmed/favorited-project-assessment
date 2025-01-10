@@ -7,7 +7,7 @@ import { generateProjectId } from "../../utils/helpers";
 const ProjectForm: React.FC = () => {
   const { addProject, projects, updateProject } = useProjects();
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { projectId } = useParams();
 
   const [formData, setFormData] = useState({
     id: "",
@@ -16,19 +16,22 @@ const ProjectForm: React.FC = () => {
     startDate: "",
     endDate: "",
     manager: "",
+    favorited: false,
   });
 
   useEffect(() => {
-    if (id) {
-      console.log(`Edit project with ID: ${id}`);
+    if (projectId) {
+      console.log(`Edit project with ID: ${projectId}`);
 
-      const projectToEdit = projects.find((project) => project.id === id);
+      const projectToEdit = projects.find(
+        (project) => project.id === projectId
+      );
 
       if (projectToEdit) {
         setFormData(projectToEdit);
       }
     }
-  }, [id, projects]);
+  }, [projectId, projects]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -46,9 +49,9 @@ const ProjectForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (id) {
+    if (projectId) {
       const updatedProject = { ...formData };
-      updateProject(id, updatedProject);
+      updateProject(projectId, updatedProject);
     } else {
       const newProject = { ...formData };
       addProject(newProject);
@@ -60,6 +63,7 @@ const ProjectForm: React.FC = () => {
       startDate: "",
       endDate: "",
       manager: "",
+      favorited: false,
     });
 
     navigate("/projects");
@@ -67,7 +71,9 @@ const ProjectForm: React.FC = () => {
 
   return (
     <Box>
-      <h4 className="py-6 text-2xl">{id ? "Update" : "Add New"} Project</h4>
+      <h4 className="py-6 text-2xl">
+        {projectId ? "Update" : "Add New"} Project
+      </h4>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -153,7 +159,7 @@ const ProjectForm: React.FC = () => {
 
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary">
-              {id ? "Update" : "Add"} Project
+              {projectId ? "Update" : "Add"} Project
             </Button>
           </Grid>
         </Grid>

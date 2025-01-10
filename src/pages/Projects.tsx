@@ -10,16 +10,16 @@ const Projects: React.FC = () => {
   return (
     <MainLayout>
       <Box className="flex justify-between items-center py-6">
-        <h1 className="text-xl sm:text-2xl">Favorites Projects</h1>
+        <h1 className="text-xl sm:text-2xl">Favorite Projects</h1>
         <Button
           variant="contained"
           color="primary"
           onClick={() => {
-            navigate("/add-project");
+            navigate("/projects/new");
           }}
-          sx={{ height: "fitContent" }}
+          className="!capitalize !shadow-none !bg-[#0075ff] !rounded-none"
         >
-          Add Project
+          Create Project
         </Button>
       </Box>
       <ProjectListTable />

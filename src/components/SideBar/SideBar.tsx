@@ -13,6 +13,7 @@ import { drawerWidth } from "../../utils/constant";
 import { useProjects } from "../../context/ProjectContext";
 
 interface MenuItem {
+  id: string;
   name: string;
   url?: string;
   icon?: React.ReactNode;
@@ -33,17 +34,20 @@ export default function SideBar(props: Props) {
 
   const menuItems: MenuItem[] = [
     {
+      id: "home",
       name: "Home",
       url: "/",
       icon: <HomeIcon />,
     },
     {
+      id: "favorite-projects",
       name: "Favorite Projects",
       icon: <WorkIcon />,
       url: "/projects",
       children: projects.map((project) => ({
         name: project.name,
-        url: "/projects",
+        url: `/projects/${project.id}`,
+        id: project.id,
       })),
     },
   ];
@@ -55,7 +59,17 @@ export default function SideBar(props: Props) {
   const renderMenuItems = (items: MenuItem[]) =>
     items.map((item) => (
       <div key={item.name}>
-        <ListItem disablePadding>
+        <ListItem
+          disablePadding
+          className="hover:bg-slate-100"
+          sx={{
+            "> a": {
+              "&:hover": {
+                backgroundColor: "transparent",
+              },
+            },
+          }}
+        >
           <ListItemButton
             onClick={() => {
               navigate(item.url || "");

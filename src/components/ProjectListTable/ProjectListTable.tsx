@@ -8,7 +8,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { Project, useProjects } from "../../context/ProjectContext";
+import { useProjects } from "../../context/ProjectContext";
+import { Project } from "../../interfaces/project";
+import { IconButton } from "@mui/material";
+import StarBorderIcon from "@mui/icons-material/StarBorderOutlined";
+import StarIcon from "@mui/icons-material/StarOutlined";
 
 interface ProjectListTableProps {
   onEditClick?: (row: Project) => void;
@@ -17,25 +21,49 @@ interface ProjectListTableProps {
 export default function ProjectListTable({
   onEditClick,
 }: ProjectListTableProps) {
-  const { projects } = useProjects();
+  const { projects, updateProject } = useProjects();
   const navigate = useNavigate();
 
-  const handleButtonClick = (row: Project) => {
+  const handleClick = (e: React.MouseEvent, row: Project) => {
+    e.stopPropagation();
+    onEditClick?.(row);
+    const updatedRow = { ...row, favorited: !row.favorited };
+    updateProject(row.id, updatedRow);
+  };
+
+  const handleButtonClick = (e: React.MouseEvent, row: Project) => {
+    e.stopPropagation();
     onEditClick?.(row);
     console.log("Button clicked for:", row.name);
-    navigate("/add-project/" + row.id);
+    navigate(`/projects/${row.id}/edit`);
   };
 
   const renderActionButton = (row: Project) => (
-    <Button
-      variant="contained"
-      color="primary"
-      size="small"
-      onClick={() => handleButtonClick(row)}
-      aria-label={`Edit project ${row.name}`}
-    >
-      Edit
-    </Button>
+    <>
+      <IconButton
+        onClick={(e) => {
+          handleClick(e, row);
+        }}
+        color={row.favorited ? "primary" : "default"}
+        className="!mr-2"
+      >
+        {!row.favorited ? (
+          <StarBorderIcon />
+        ) : (
+          <StarIcon sx={{ color: "red" }} />
+        )}
+      </IconButton>
+      <Button
+        variant="contained"
+        color="primary"
+        size="small"
+        onClick={(e) => handleButtonClick(e, row)}
+        aria-label={`Edit project ${row.name}`}
+        className="!capitalize !shadow-none !bg-[#0075ff] !rounded-none"
+      >
+        Edit
+      </Button>
+    </>
   );
 
   return (
@@ -44,10 +72,10 @@ export default function ProjectListTable({
         <TableHead>
           <TableRow>
             <TableCell>Project ID</TableCell>
-            <TableCell align="right">Project Name</TableCell>
+            <TableCell align="center">Project Name</TableCell>
             <TableCell align="right">Start Date</TableCell>
             <TableCell align="right">End Date</TableCell>
-            <TableCell align="right">Project Manager</TableCell>
+            <TableCell align="center">Project Manager</TableCell>
             <TableCell align="center">Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -56,14 +84,18 @@ export default function ProjectListTable({
             <TableRow
               key={row.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              onClick={() => {
+                navigate(`/projects/${row.id}`);
+              }}
+              className="cursor-pointer hover:bg-slate-100"
             >
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <TableCell align="right">{row.name}</TableCell>
+              <TableCell align="center">{row.name}</TableCell>
               <TableCell align="right">{row.startDate}</TableCell>
               <TableCell align="right">{row.endDate}</TableCell>
-              <TableCell align="right">{row.manager}</TableCell>
+              <TableCell align="center">{row.manager}</TableCell>
               <TableCell align="center">{renderActionButton(row)}</TableCell>
             </TableRow>
           ))}
