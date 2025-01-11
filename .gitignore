@@ -39,3 +39,4 @@ Thumbs.db
 coverage/
 
 .history
+.vercel

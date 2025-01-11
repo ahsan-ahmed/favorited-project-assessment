@@ -3,7 +3,7 @@ import { Project } from "../interfaces/project";
 // const BASE_URL = "http://localhost:5001/api";
 
 const apiUrl = process.env.NODE_ENV === "production"
-    ? "https://your-backend-url.com/api"
+    ? "favorited-project-assessment.vercel.app/api"
     : "http://localhost:5001/api";
 
 
