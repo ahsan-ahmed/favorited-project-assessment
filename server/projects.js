@@ -9,11 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
 app.get("/", (req, res) => {
     res.status(200).json(projects);
 });
-//
+
 app.get("/:id", (req, res) => {
     const { id } = req.params;
     const project = projects.find((p) => p.id === id);
