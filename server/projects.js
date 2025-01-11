@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const projects = require('../data/projects.json'); // assuming the projects data is in the 'data' folder
+const projects = require('./data/projects.json'); // assuming the projects data is in the 'data' folder
 
 const app = express();
 
