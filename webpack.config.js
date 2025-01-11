@@ -31,10 +31,11 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
+            inject: true,
         }),
     ],
     devServer: {
-        static: './dist',
+        static: './build',
         hot: true,
         port: 3000,
         historyApiFallback: true,
