@@ -4,7 +4,7 @@ import { Button, IconButton } from "@mui/material";
 import StarBorderIcon from "@mui/icons-material/StarBorderOutlined";
 import StarIcon from "@mui/icons-material/StarOutlined";
 
-import { Typography, Box, Grid, Paper } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import MainLayout from "../layouts/MainLayout";
 import { fetchProject } from "../utils/api";
 import { Project } from "../interfaces/project";

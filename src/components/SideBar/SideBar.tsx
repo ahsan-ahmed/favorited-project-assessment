@@ -44,11 +44,13 @@ export default function SideBar(props: Props) {
       name: "Favorite Projects",
       icon: <WorkIcon />,
       url: "/projects",
-      children: projects.map((project) => ({
-        name: project.name,
-        url: `/projects/${project.id}`,
-        id: project.id,
-      })),
+      children: projects
+        .filter((project) => project.favorited)
+        .map((proj) => ({
+          name: proj.name,
+          url: `/projects/${proj.id}`,
+          id: proj.id,
+        })),
     },
   ];
 

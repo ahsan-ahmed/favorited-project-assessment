@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Grid, Typography, Box } from "@mui/material";
+import { TextField, Button, Grid, Box } from "@mui/material";
 import { useProjects } from "../../context/ProjectContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { generateProjectId } from "../../utils/helpers";

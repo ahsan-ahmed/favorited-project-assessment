@@ -1,24 +1,35 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Projects from "./pages/Projects";
-import AddProject from "./pages/AddProject";
-import { ProjectProvider } from "./context/ProjectContext";
-import ProjectDetail from "./pages/ProjectDetail";
+
+const Home = React.lazy(() => import("./pages/Home"));
+const Projects = React.lazy(() => import("./pages/Projects"));
+const AddProject = React.lazy(() => import("./pages/AddProject"));
+const ProjectDetail = React.lazy(() => import("./pages/ProjectDetail"));
+
+import ErrorBoundary from "./components/ErrorBoundary";
+import Loader from "./components/Loader";
+import AppProvider from "./context/providers/AppProvider";
 
 const App: React.FC = () => {
   return (
-    <ProjectProvider>
+    <AppProvider>
       <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/new" element={<AddProject />} />
-          <Route path="/projects/:projectId/edit" element={<AddProject />} />
-          <Route path="/projects/:projectId" element={<ProjectDetail />} />
-        </Routes>
+        <ErrorBoundary>
+          <Suspense fallback={<Loader type="skeleton" />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/new" element={<AddProject />} />
+              <Route
+                path="/projects/:projectId/edit"
+                element={<AddProject />}
+              />
+              <Route path="/projects/:projectId" element={<ProjectDetail />} />
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
       </Router>
-    </ProjectProvider>
+    </AppProvider>
   );
 };
 

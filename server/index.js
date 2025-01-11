@@ -49,6 +49,8 @@ app.delete("/api/projects/:id", (req, res) => {
     res.status(204).send();
 });
 
-app.listen(PORT, () => {
-    console.log(`Mock API Server running at http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Mock API Server running at http://localhost:${PORT}`);
+// });
+
+module.exports = (req, res) => app(req, res);

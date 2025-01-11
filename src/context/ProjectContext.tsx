@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { Project } from "../interfaces/project";
 import { createProject, editProject, getProjects } from "../utils/api";
+import { useSnackbar } from "./SnackbarContext";
 
 interface ProjectContextType {
   projects: Project[];
@@ -24,6 +25,7 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
   children,
 }) => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const { showSnackbar } = useSnackbar();
 
   useEffect(() => {
     getProjects()
@@ -33,22 +35,36 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
 
   const addProject = (project: Project) => {
     createProject(project)
-      .then((addedProject) =>
-        setProjects((prevProjects) => [...prevProjects, addedProject])
-      )
-      .catch((error) => console.error(error));
+      .then((addedProject) => {
+        setProjects((prevProjects) => [...prevProjects, addedProject]);
+        showSnackbar("Project has been added successfully!", "success");
+      })
+      .catch((error) => {
+        console.error(error);
+        showSnackbar(
+          "An error occurred while adding the project. Please try again.",
+          "error"
+        );
+      });
   };
 
   const updateProject = (id: string, updatedProject: Project) => {
     editProject(id, updatedProject)
-      .then((updatedProject) =>
+      .then((updatedProject) => {
         setProjects((prevProjects) =>
           prevProjects.map((project) =>
             project.id === id ? { ...project, ...updatedProject } : project
           )
-        )
-      )
-      .catch((error) => console.error("Error updating project:", error));
+        );
+        showSnackbar("Project has been updated successfully!", "success");
+      })
+      .catch((error) => {
+        console.error("Error updating project:", error);
+        showSnackbar(
+          "An error occurred while updating the project. Please try again.",
+          "error"
+        );
+      });
   };
 
   return (
