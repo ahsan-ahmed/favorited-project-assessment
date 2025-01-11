@@ -13,7 +13,7 @@ app.use(express.json());
 app.get("/api/projects", (req, res) => {
     res.status(200).json(projects);
 });
-
+//
 app.get("/api/projects/:id", (req, res) => {
     const { id } = req.params;
     const project = projects.find((p) => p.id === id);
