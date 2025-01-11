@@ -35,9 +35,9 @@ module.exports = {
         }),
     ],
     devServer: {
-        static: './build',
+        static: './dist',
         hot: true,
         port: 3000,
-        historyApiFallback: true, //
+        historyApiFallback: true,
     },
 };
