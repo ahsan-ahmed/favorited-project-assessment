@@ -4,10 +4,12 @@ const cors = require("cors");
 const projects = require("./data/projects.json");
 
 const app = express();
-const PORT = 5001;
+const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
+
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.get("/api/projects", (req, res) => {
     res.status(200).json(projects);
@@ -52,3 +54,4 @@ app.listen(PORT, () => {
     console.log(`Mock API Server running at http://localhost:${PORT}`);
 });
 
+module.exports = app;
