@@ -4,7 +4,7 @@ const cors = require("cors");
 const projects = require("./data/projects.json");
 
 const app = express();
-const PORT = 5001;
+// const PORT = 5001;
 
 app.use(cors());
 app.use(express.json());
@@ -53,4 +53,6 @@ app.delete("/api/projects/:id", (req, res) => {
 //     console.log(`Mock API Server running at http://localhost:${PORT}`);
 // });
 
-module.exports = (req, res) => app(req, res);
+module.exports = (req, res) => {
+    app(req, res);
+};
