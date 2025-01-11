@@ -1,9 +1,8 @@
 import { Project } from "../interfaces/project";
 
 const apiUrl = process.env.NODE_ENV === "production"
-    ? "https://favorited-project-assessment.vercel.app/api"
+    ? "https://42c5-103-7-61-83.ngrok-free.app/api"
     : "http://localhost:5001/api";
-
 
 export const getProjects = async (): Promise<Project[]> => {
     const response = await fetch(`${apiUrl}/projects`);
